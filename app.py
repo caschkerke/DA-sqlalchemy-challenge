@@ -41,7 +41,7 @@ app = Flask(__name__)
 def welcome():
     """List all available api routes."""
     return (
-        f"Available Routes:<br/>"
+        f"Available Routes (Dates formatted as %Y-%m-%d):<br/>"
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
@@ -123,7 +123,7 @@ def start_date(start):
     res_avg = res_list[1]
     res_max = res_list[2]
 
-    res = [res_min, res_avg, res_max]
+    res = {'Temp Min':res_min, 'Temp Avg':res_avg, 'Temp Max':res_max}
 
     return jsonify(res)
 
@@ -151,7 +151,7 @@ def start_end_date(start, end):
 
     """Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start or start-end range."""
 
-    results = start_end_date(start, end)
+    results = calc_temps(start, end)
 
     res_list = list(np.ravel(results))
 
@@ -159,7 +159,7 @@ def start_end_date(start, end):
     res_avg = res_list[1]
     res_max = res_list[2]
 
-    res = [res_min, res_avg, res_max]
+    res = {'Temp Min':res_min, 'Temp Avg':res_avg, 'Temp Max':res_max}
 
     return jsonify(res)
 
